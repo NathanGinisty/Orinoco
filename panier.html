@@ -24,7 +24,7 @@
     
     <!-- MAIN -->
     <main id="contenu">
-        <div class="cart">
+        <section class="cart">
             <h2 class="cart-title">Votre panier</h2>
             <table>
                 <thead>
@@ -50,8 +50,50 @@
                     </tr>
                 </tfoot>
             </table>
-        </div>
+        </section>
+        
+        <section class="confirmation">
+            <p>Passer la commande</p>
+            <br><br> <!--temp-->
+
+            <form class="confirmation-form">
+                <div class="confirmation-form-element" style="grid-area: fname";>
+                    <label for="fname">Prénom</label>
+                    <input class="confirmation-form-input" type="text" id="form-fname" value="">
+                </div>
+
+                <div class="confirmation-form-element" style="grid-area: lname";>
+                    <label for="lname">Nom</label>
+                    <input class="confirmation-form-input" type="text" id="form-lname" value="">
+                </div>
+                
+                <div class="confirmation-form-element" style="grid-area: email";>
+                    <label for="email">Email</label>
+                    <input class="confirmation-form-input" type="text" id="form-email" value="">
+                </div>
+                
+                <div class="confirmation-form-element" style="grid-area: adress";>
+                    <label for="adress">Adresse</label>
+                    <input class="confirmation-form-input" type="text" id="form-adress" value="">
+                </div>
+                
+                <div class="confirmation-form-element" style="grid-area: city";>
+                    <label for="city">Ville</label>
+                    <input class="confirmation-form-input" type="text" id="form-city" value="">
+                </div>
+                
+                <div class="confirmation-form-element" style="grid-area: postal";>
+                    <label for="postal">Code Postal</label>
+                    <input class="confirmation-form-input" type="number" id="form-postal" value="">
+                </div>
+            </form>
+
+            <br><br> <!--temp-->
+            <p>[Button Commander]</p>
+        </section>
     </main>
+    
+    
     
     <!-- Footer -->
     <footer>

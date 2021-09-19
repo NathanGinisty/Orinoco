@@ -14,7 +14,7 @@ function LoadCart()
 
         lastItem.parentNode.insertBefore(newItem, lastItem);
 
-        // rename to the new index        
+        // rename to the new index      
         document.getElementById("item-0-0").setAttribute("id", "item-" + completeID);
         document.getElementById("item-name-0-0").setAttribute("id", "item-name-" + completeID);
         document.getElementById("item-quantity-0-0").setAttribute("id", "item-quantity-" + completeID);
@@ -22,6 +22,7 @@ function LoadCart()
         document.getElementById("item-pricetotal-0-0").setAttribute("id", "item-pricetotal-" + completeID);
         
         // set new value onto the new product
+       
         document.getElementById("item-name-" + completeID).innerHTML = e.name + " (" + e.lensesText + ")";
         document.getElementById("item-quantity-" + completeID).innerHTML = e.quantity;
         document.getElementById("item-price-" + completeID).innerHTML = e.price.toFixed(2) + "€";
@@ -34,7 +35,8 @@ function LoadCart()
 
     document.getElementById("items-pricetotal").innerHTML = totalPrice.toFixed(2) + "€";
     
-    srcItem.remove(); // remove the base(first one) since it became useless
+    document.getElementById("item-0-0").style.display = "none";
+    // srcItem.remove(); // remove the base(first one) since it became useless
 }
 
 // ----------------------
