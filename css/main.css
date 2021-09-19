@@ -419,11 +419,22 @@ main {
     height: 60px;
     margin: 0 auto;
     text-align: center;
+    /* cursor: pointer; */
     
     background-color: rgb(241,129,38); /* For browsers that do not support gradients */
     background-image: linear-gradient(90deg, rgb(241,129,38), rgb(165,92,252));
     border-radius: 12px;
     box-shadow: 2px 2px 2px rgb(210, 210, 210);
+
+    transition-duration: 0.1s;
+}
+
+.item-button-buy:hover {
+    transform:scale(1.05);
+}
+
+.item-button-buy:active {
+    transform:scale(1)
 }
 
 .item-button-buy-text {

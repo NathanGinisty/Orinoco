@@ -1,5 +1,7 @@
 const apiUrl = "http://localhost:3000/api/cameras/"
 
+var itemId = window.location.href.split('#')[1];
+
 function GetItemFromID(index)
 {
     fetch(apiUrl + index)
@@ -43,6 +45,42 @@ function GetItemFromID(index)
     })
 }
 
+function CheckIfExist(_cart, _product)
+{
+    _cart.forEach(e => {
+        if (e.id == _product.id && e.lenses == _product.lenses)
+        {
+            e.quantity++;
+            return true;
+        }
+    })
+
+    return false;
+}
+
+
+function AddToCart()
+{   
+    // Get or init (if doesn't already exist) the storage 
+    const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+    
+    // Create another object
+    var productToAdd = { id: itemId, lenses: 0, quantity: 1 };
+    
+    // Check if already exist
+    if (CheckIfExist(_cart, _product))
+    {
+        
+    }
+    else
+    {
+        cart.push(productToAdd)
+    }
+    
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+}
+
 /* ----------------------------------------------------------- */
 
-GetItemFromID(window.location.href.split('#')[1]);
+
+GetItemFromID(itemId);
