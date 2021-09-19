@@ -85,9 +85,18 @@ function newProduct(node, element, index, insertAfterNode = null)
 
 /* ----------------------------------------------------------- */
 
-function LoadProductPage(element)
+function LoadProductPage(_element, _lenses = null)
 {
-    element.setAttribute("href", "product.html#" + element.id);
+    if (_lenses == null)
+    {
+        _element.setAttribute("href", _element.href + "#" + _element.id + "#0");
+    }
+    else
+    {
+        var numLense = _element.id.split('-')[3];
+        var id = _element.parentNode.parentNode.childNodes[1].id;
+        _element.setAttribute("href", _element.href + "#" + id + "#" + numLense);
+    }
 }
 
 /* ----------------------------------------------------------- */

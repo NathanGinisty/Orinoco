@@ -45,19 +45,13 @@ function GetItemFromID(index)
     })
 }
 
-function CheckIfExist(_cart, _product)
+function SelectLenses(_element)
 {
-    _cart.forEach(e => {
-        if (e.id == _product.id && e.lenses == _product.lenses)
-        {
-            e.quantity++;
-            return true;
-        }
-    })
-
-    return false;
+    var numLense = _element.id.split('-')[3];
+    var currentHtml = window.location.href.split('#')[0] + "#" + window.location.href.split('#')[1];
+    var currentHtml2 = window.location.href.split(/(?=#)/g).slice(0,-1).splice(',')[1];
+    window.location.href = currentHtml2 + "#" + numLense;
 }
-
 
 function AddToCart()
 {   
@@ -65,16 +59,35 @@ function AddToCart()
     const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
     
     // Create another object
-    var productToAdd = { id: itemId, lenses: 0, quantity: 1 };
+    var alreadyExist = false;
+    var itemLenses = window.location.href.split('#')[2];
+
+    //parseInt()
+    var a = document.getElementById("prdt-price-" + itemId).innerHTML.split(".")[0];
+    var b = document.getElementById("prdt-price-" + itemId).innerHTML.split(".")[1].split('€')[0];
+    var trueValuePrice = parseFloat(a) + (parseFloat(b)/100);
+
+    var productToAdd = {
+        id: itemId,
+        name: document.getElementById("prdt-name-" + itemId).innerHTML,
+        price: trueValuePrice,
+        lenses: itemLenses,
+        lensesText: document.getElementById("prdt-lenses-" + itemId + "-" + itemLenses).innerHTML,
+        quantity: 1};
     
-    // Check if already exist
-    if (CheckIfExist(_cart, _product))
+    // Check if already exist. If yes, increase quantity
+    cart.forEach(e => {
+        if (e.id == productToAdd.id && e.lenses == productToAdd.lenses)
+        {
+            e.quantity++;
+            alreadyExist = true;
+        }
+    })
+    
+    // If doesn't exist, add new product
+    if (!alreadyExist)
     {
-        
-    }
-    else
-    {
-        cart.push(productToAdd)
+        cart.push(productToAdd);
     }
     
     sessionStorage.setItem("cart", JSON.stringify(cart));

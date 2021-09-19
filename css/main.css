@@ -332,6 +332,10 @@ main {
     border-radius: 10px;
     border-style: dotted;
     padding: 2px 8px;
+
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
 }
 
 .product-lenses:hover {
@@ -399,6 +403,10 @@ main {
     border-radius: 10px;
     border-style: dotted;
     padding: 2px 8px;
+
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
 }
 
 .item-lenses:hover {
