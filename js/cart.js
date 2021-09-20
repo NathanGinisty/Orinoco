@@ -25,7 +25,7 @@ function LoadCart()
             // set new value onto the new product
             
             document.getElementById("item-name-" + completeID).innerHTML = e.name + " (" + e.lensesText + ")";
-            document.getElementById("item-quantity-" + completeID).innerHTML = e.quantity;
+            document.getElementById("item-quantity-" + completeID).firstChild.value = e.quantity;
             document.getElementById("item-price-" + completeID).innerHTML = e.price.toFixed(2) + "€";
             document.getElementById("item-pricetotal-" + completeID).innerHTML = (e.price * e.quantity).toFixed(2) + "€";
             
@@ -39,6 +39,35 @@ function LoadCart()
     
     document.getElementById("item-0-0").style.display = "none";
     // srcItem.remove(); // remove the base(first one) since it became useless
+}
+
+function UpdateQuantity(_form)
+{
+    var totalPrice = 0;
+
+    //get ID from the parend node
+    var parentID = _form.parentNode.id.split("-")[2];
+    var parentLenses = _form.parentNode.id.split("-")[3];
+
+    if (cart != null)
+    {
+        cart.forEach(e => {
+            // change value
+            if (e.id == parentID && e.lenses == parentLenses)
+            {
+                e.quantity = _form.value;
+                document.getElementById("item-pricetotal-" + parentID + "-" + parentLenses).innerHTML = (e.price * e.quantity).toFixed(2) + "€";
+            }
+
+            // update the total price
+            totalPrice += (e.price * e.quantity);
+        })
+    }
+
+    // save new value
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+
+    document.getElementById("items-pricetotal").innerHTML = totalPrice.toFixed(2) + "€";
 }
 
 // ----------------------

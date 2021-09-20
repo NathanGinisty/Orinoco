@@ -503,10 +503,22 @@ table {
 td, th {
     border: 1px solid #333;
     padding: 12px 0;
+    width: 20%;
+}
+
+.cart-row:first-child {
+    width: 40%;
 }
 
 #cart-item {
     background-color: white;
+}
+
+.form-quantity {
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    width: 100%;
 }
 
 /* ------------------------------------------------------------ */
