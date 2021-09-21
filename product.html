@@ -24,22 +24,24 @@
     
     <!-- MAIN -->
     <main id="contenu">
-        <article id="prdt-0" class="item" >
-            <div class="item-img"><img class="item-img-cropped" id="prdt-img-0" src="" alt=""></div>
-            <div class="item-info">
-                <h2 id="prdt-name-0" class="item-title">NOM</h2>
-                <h3 id="prdt-price-0" class="item-price">PRIX</h3>
-                <div id="prdt-description-0" class="item-description">DESCRIPTION</div>
-                <div class="item-lenses-container">
-                    <h4 id="prdt-lenses-0-0" onclick="SelectLenses(this)" class="item-lenses">LENSES</h4>
-                </div>
-                <a href="panier.html" class="link-without-underline">
-                    <div class="item-button-buy" onclick="AddToCart()">
-                        <div class="item-button-buy-text">Ajouter au panier</div>
+        <div class="item-margin">
+            <article id="prdt-0" class="item" >
+                <div class="item-img"><img class="item-img-cropped" id="prdt-img-0" src="img/icon.png" alt=""></div>
+                <div class="item-info">
+                    <h2 id="prdt-name-0" class="item-title">NOM</h2>
+                    <h3 id="prdt-price-0" class="item-price">PRIX</h3>
+                    <div id="prdt-description-0" class="item-description">DESCRIPTION</div>
+                    <div class="item-lenses-container">
+                        <h4 id="prdt-lenses-0-0" onclick="SelectLenses(this)" class="item-lenses">LENSES</h4>
                     </div>
-                </a>
-            </div>
-        </article> 
+                    <a href="panier.html" class="link-without-underline">
+                        <div class="item-button-buy" onclick="AddToCart()">
+                            <div class="item-button-buy-text">Ajouter au panier</div>
+                        </div>
+                    </a>
+                </div>
+            </article> 
+        </div>
     </main>
     
     <!-- Footer -->
@@ -52,6 +54,6 @@
         </ul>
     </footer>
     
-    <script type="text/javascript" src="js/product.js"></script>
+    <script src="js/product.js"></script>
 </body>
 </html>

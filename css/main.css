@@ -220,7 +220,27 @@ header {
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 426px) and (max-width: 768px) {
+    .logo {
+        margin-left: 20px;
+    }
+    
+    .nav-bar {
+        margin-right: 0px;
+        width: 100%;
+    }
+    
+    .logo {
+        display: none;
+    }
+    
+    header {
+        grid-template-columns: auto;
+        grid-template-areas: "navbar";
+    }
+}
+
+@media screen and (max-width: 426px) {
     .logo {
         margin-left: 20px;
     }
@@ -253,11 +273,21 @@ main {
     width: 100%;
 }
 
+#contenu
+{
+    padding: 150px 0;
+}
+
+
+/* ------------------------------------------------------------ */
+/* --------------------------- Index -------------------------- */
+/* ------------------------------------------------------------ */
+
 .product-container {
     max-width: 1200px;
-    padding: 100px 0;
+    padding: 100px 20px;
     margin: 0 auto;
-    gap: 40px 0;
+    gap: 40px;
     display: flex;
     justify-content: center;
     align-content: space-around;
@@ -266,8 +296,11 @@ main {
 
 .product {
     text-decoration: none !important;
-    width: 500px;
+    
     height: 400px;
+    flex: 40%;
+    max-width: 500px;
+    
     
     position: relative;
     z-index: 10;
@@ -278,7 +311,8 @@ main {
     background: rgb(245,250,255);
     border-radius: 15px;
     padding: 10px;
-    margin: 0 20px;
+    
+    margin: 0;
     
     transition-duration: 0.3s;
 }
@@ -335,7 +369,7 @@ main {
     
     text-decoration: none;
     color: black;
-    font-weight: bold;
+    font-weight: bold;;
 }
 
 .product-lenses:hover {
@@ -355,19 +389,52 @@ main {
     margin-top: 10px;
 }
 
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+    
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .product-container {
+        padding: 100px 20px;
+        gap: 15px;
+    }
+    
+    .product {
+        height: 400px;
+    }
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+    .product-container {
+        padding: 40px 20px 80px 20px;
+        gap: 15px;
+    }
+    
+    .product {
+        height: 400px;
+        flex: 60%;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .product-container {
+        padding: 20px 10px 60px 10px;
+        gap: 10px;
+    }
+}
+
+
 /* ------------------------------------------------------------ */
 /* ------------------------ Product Page ---------------------- */
 /* ------------------------------------------------------------ */
 
-#contenu
-{
-    padding: 150px 0;
+.item-margin {
+    margin: 20px;
 }
-
 
 .item {
     background: rgb(245,250,255);
-    width: 1100px;
+    max-width: 1100px;
     height: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -387,7 +454,7 @@ main {
     padding: 20px;
 }
 
-.item-title {}
+/* .item-title {} */
 
 .item-price {
     margin: 10px 0;
@@ -467,6 +534,62 @@ main {
     border-radius: 12px;
 }
 
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+    
+    
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .item {
+        height: 800px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 3fr 2fr;
+        grid-gap: 20px;
+    }
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+    .item {
+        height: 700px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 3fr 2fr;
+        grid-gap: 20px;
+    }
+    
+    .item-lenses-container {
+        gap: 20px 10px;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .item {
+        height: 600px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr 3fr;
+        grid-gap: 20px;
+
+        padding: 10px;
+        grid-gap: 10px;
+    }
+
+    .item-info
+    {
+        padding: 15px;
+    }
+
+    .item-lenses-container {
+        gap: 20px 10px;
+    }
+
+    .item-margin {
+        margin: 10px;
+    }
+
+    .item-button-buy {
+        width: 230px;
+    }
+}
+
 /* ------------------------------------------------------------ */
 /* -------------------------- Panier -------------------------- */
 /* ------------------------------------------------------------ */
@@ -531,6 +654,22 @@ td, th {
     margin: 0px;
 }
 
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+    
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+    
+}
+
+@media screen and (max-width: 426px) {
+    
+}
+
 /* ------------------------------------------------------------ */
 /* ----------------------- Confirmation ----------------------- */
 /* ------------------------------------------------------------ */
@@ -565,6 +704,22 @@ td, th {
     border: 1px solid lightgray;
     font-size: 16px;
     margin-top: 6px;
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+    
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+    
+}
+
+@media screen and (max-width: 426px) {
+    
 }
 
 /* ------------------------------------------------------------ */
@@ -605,3 +760,19 @@ footer {
 }
 
 /*#endregion footer*/
+
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+    
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+    
+}
+
+@media screen and (max-width: 426px) {
+    
+}

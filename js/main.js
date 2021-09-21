@@ -40,7 +40,6 @@ function newProduct(node, element, index, insertAfterNode = null)
     document.getElementById("prdt-description-" + index).innerHTML = element.description;
     
     let newPrice = String(element.price);
-    ;
     document.getElementById("prdt-price-" + index).innerHTML = newPrice.slice(0,-2)+ "." + newPrice.slice(-2,newPrice.length)+ "€";
     
     
