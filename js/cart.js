@@ -46,16 +46,18 @@ function UpdateQuantity(_form)
 {
     if (_form.value < 1)
     {
+        // Block to 1
         _form.value = 1;
-        return; // to add: "êtes vous sur de vouloir supprimer le produit ?"
+        return;
     }
     
     totalPrice = 0;
     
-    //get ID from the parend node
+    //get ID from the parent node
     var parentID = _form.parentNode.id.split("-")[2];
     var parentLenses = _form.parentNode.id.split("-")[3];
     
+    // Update
     if (cart != null)
     {
         cart.forEach(e => {
@@ -77,7 +79,16 @@ function UpdateQuantity(_form)
     document.getElementById("items-pricetotal").innerHTML = totalPrice.toFixed(2) + "€";
 }
 
+function AreContactAreValid(_contact)
+{
+    if (_contact.firstName == null || _contact.firstName == "") return false;
+    if (_contact.lastName == null || _contact.lastName == "") return false;
+    if (_contact.address == null || _contact.address == "") return false;
+    if (_contact.city == null || _contact.city == "") return false;
+    if (_contact.email == null || _contact.email == "") return false;
 
+    return true;
+}
 
 function Order()
 {
@@ -89,6 +100,18 @@ function Order()
         city: document.getElementById("form-city").value,
         email: document.getElementById("form-email").value
     };
+
+    // Check if the order is elligible
+    if (cart == null)
+    {
+        alert("Le panier est vide !");
+        return;
+    }
+    if (!AreContactAreValid(contactToSend))
+    {
+        alert("Les informations sont incomplètes ou invalides !");
+        return;
+    }
     
     var cartToSend = [];
     cart.forEach(e => {
@@ -104,7 +127,7 @@ function Order()
     })
     
     
-    // Sending info
+    // Sending info...
     fetch("http://localhost:3000/api/cameras/order",
     {
         method: 'POST',
@@ -121,7 +144,7 @@ function Order()
         sessionStorage.setItem('orderId', JSON.stringify(r.cartToSend));
         sessionStorage.setItem('total', JSON.stringify(totalPrice));
         sessionStorage.removeItem('cart');
-        window.location.replace("./index.html"); //Go back to index
+        window.location.replace("./confirmation.html"); //Go back to index
     })
     .catch((e) => {
         displayError();
