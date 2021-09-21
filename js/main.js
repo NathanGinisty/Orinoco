@@ -3,7 +3,7 @@
 - formulaire de contact
 - panier
 - formulaire de commande
-- confirmation de commande ( back-end ID, calculé depuis le backend)
+- contact de commande ( back-end ID, calculé depuis le backend)
 
 */
 

@@ -1,12 +1,13 @@
 const apiUrl = "http://localhost:3000/api/cameras/"
 var cart = JSON.parse(sessionStorage.getItem("cart")); 
+var totalPrice = 0;
 
 function LoadCart()
 {
     var srcItem = document.getElementById("item-0-0");
     var lastItem = srcItem;
-    
     var totalPrice = 0;
+    
     if (cart != null)
     {
         cart.forEach(e => {
@@ -43,12 +44,18 @@ function LoadCart()
 
 function UpdateQuantity(_form)
 {
-    var totalPrice = 0;
-
+    if (_form.value < 1)
+    {
+        _form.value = 1;
+        return; // to add: "êtes vous sur de vouloir supprimer le produit ?"
+    }
+    
+    totalPrice = 0;
+    
     //get ID from the parend node
     var parentID = _form.parentNode.id.split("-")[2];
     var parentLenses = _form.parentNode.id.split("-")[3];
-
+    
     if (cart != null)
     {
         cart.forEach(e => {
@@ -58,17 +65,71 @@ function UpdateQuantity(_form)
                 e.quantity = _form.value;
                 document.getElementById("item-pricetotal-" + parentID + "-" + parentLenses).innerHTML = (e.price * e.quantity).toFixed(2) + "€";
             }
-
+            
             // update the total price
             totalPrice += (e.price * e.quantity);
         })
     }
-
+    
     // save new value
     sessionStorage.setItem("cart", JSON.stringify(cart));
-
+    
     document.getElementById("items-pricetotal").innerHTML = totalPrice.toFixed(2) + "€";
 }
+
+
+
+function Order()
+{
+    // Get all the contact and cart to send
+    var contactToSend = {
+        firstName: document.getElementById("form-fname").value,
+        lastName: document.getElementById("form-lname").value,
+        address: document.getElementById("form-address").value,
+        city: document.getElementById("form-city").value,
+        email: document.getElementById("form-email").value
+    };
+    
+    var cartToSend = [];
+    cart.forEach(e => {
+        for (let i = 0; i < e.quantity; i++) {
+            cartToSend.push(e.id);
+        }
+    })
+    
+    // Prepare info to send
+    var toSend = JSON.stringify({
+        contactToSend,
+        cartToSend
+    })
+    
+    
+    // Sending info
+    fetch("http://localhost:3000/api/cameras/order",
+    {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode:'cors',
+        body: toSend
+        
+    }).then(response => {
+        return response.json();
+    }).then( r => {
+        sessionStorage.setItem('contact', JSON.stringify(r.contactToSend));
+        sessionStorage.setItem('orderId', JSON.stringify(r.cartToSend));
+        sessionStorage.setItem('total', JSON.stringify(totalPrice));
+        sessionStorage.removeItem('cart');
+        window.location.replace("./index.html"); //Go back to index
+    })
+    .catch((e) => {
+        displayError();
+        console.log(e);
+    })
+    
+}
+
 
 // ----------------------
 

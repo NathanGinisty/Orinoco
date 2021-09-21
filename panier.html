@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orinoco</title>
+    <title>Orinoco - Panier</title>
     <link rel="stylesheet" href="css/main.css">
     
     <link rel="icon" href="img/icon.png" type="image/png" sizes="16x16">
@@ -52,44 +52,48 @@
             </table>
         </section>
         
-        <section class="confirmation">
-            <p>Passer la commande</p>
-            <br><br> <!--temp-->
+        <section class="contact">
+            <h2>Passer la commande</h2>
+            <br> <!--temp-->
 
-            <form class="confirmation-form">
-                <div class="confirmation-form-element" style="grid-area: fname";>
+            <form class="contact-form">
+                <div class="contact-form-element" style="grid-area: fname";>
                     <label for="fname">Prénom</label>
-                    <input class="confirmation-form-input" type="text" id="form-fname" value="">
+                    <input class="contact-form-input" type="text" id="form-fname" value="">
                 </div>
 
-                <div class="confirmation-form-element" style="grid-area: lname";>
+                <div class="contact-form-element" style="grid-area: lname";>
                     <label for="lname">Nom</label>
-                    <input class="confirmation-form-input" type="text" id="form-lname" value="">
+                    <input class="contact-form-input" type="text" id="form-lname" value="">
                 </div>
                 
-                <div class="confirmation-form-element" style="grid-area: email";>
+                <div class="contact-form-element" style="grid-area: email";>
                     <label for="email">Email</label>
-                    <input class="confirmation-form-input" type="text" id="form-email" value="">
+                    <input class="contact-form-input" type="text" id="form-email" value="">
                 </div>
                 
-                <div class="confirmation-form-element" style="grid-area: adress";>
-                    <label for="adress">Adresse</label>
-                    <input class="confirmation-form-input" type="text" id="form-adress" value="">
+                <div class="contact-form-element" style="grid-area: address";>
+                    <label for="address">Adresse</label>
+                    <input class="contact-form-input" type="text" id="form-address" value="">
                 </div>
                 
-                <div class="confirmation-form-element" style="grid-area: city";>
+                <div class="contact-form-element" style="grid-area: city";>
                     <label for="city">Ville</label>
-                    <input class="confirmation-form-input" type="text" id="form-city" value="">
+                    <input class="contact-form-input" type="text" id="form-city" value="">
                 </div>
                 
-                <div class="confirmation-form-element" style="grid-area: postal";>
+                <!-- <div class="contact-form-element" style="grid-area: postal";>
                     <label for="postal">Code Postal</label>
-                    <input class="confirmation-form-input" type="number" id="form-postal" value="">
-                </div>
+                    <input class="contact-form-input" type="number" id="form-postal" value="">
+                </div> -->
             </form>
 
             <br><br> <!--temp-->
-            <p>[Button Commander]</p>
+            <a href="#" class="link-without-underline">
+                <div class="item-button-buy" onclick="Order()">
+                    <div class="item-button-buy-text">Commander</div>
+                </div>
+            </a>
         </section>
     </main>
     
