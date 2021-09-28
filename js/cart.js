@@ -86,11 +86,11 @@ function AreContactAreValid(_contact)
     if (_contact.address == null || _contact.address == "") return false;
     if (_contact.city == null || _contact.city == "") return false;
     if (_contact.email == null || _contact.email == "") return false;
-
+    
     return true;
 }
 
-function Order()
+function PostOrder()
 {
     // Get all the contact and cart to send
     var contactToSend = {
@@ -100,7 +100,7 @@ function Order()
         city: document.getElementById("form-city").value,
         email: document.getElementById("form-email").value
     };
-
+    
     // Check if the order is elligible
     if (cart == null)
     {
@@ -121,38 +121,35 @@ function Order()
     })
     
     // Prepare info to send
-    var toSend = JSON.stringify({
+    var order = {
         contactToSend,
         cartToSend
-    })
+    }
     
+    var request = {
+        method: 'POST',
+        body: JSON.stringify(order), //was "toSend"
+        headers: {'Content-Type': 'application/json; charset=utf-8'},
+    }
     
     // Sending info...
-    fetch("http://localhost:3000/api/cameras/order",
-    {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        mode:'cors',
-        body: toSend
-        
-    }).then(response => {
-        return response.json();
-    }).then( r => {
-        sessionStorage.setItem('contact', JSON.stringify(r.contactToSend));
-        sessionStorage.setItem('orderId', JSON.stringify(r.cartToSend));
-        sessionStorage.setItem('total', JSON.stringify(totalPrice));
-        sessionStorage.removeItem('cart');
-        window.location.replace("./confirmation.html"); //Go back to index
+    fetch('http://localhost:3000/api/cameras/order', request)
+    .then((response) => response.json())
+    .then( (r) => {
+        console.log(r);
+
+        // ce que je garde en local, a remplacer par server d'ailleurs
+        // sessionStorage.setItem('contact', JSON.stringify(r.contactToSend));
+        // sessionStorage.setItem('orderId', JSON.stringify(r.cartToSend));
+        // sessionStorage.setItem('total', JSON.stringify(totalPrice));
+
+        // sessionStorage.removeItem('cart');
+        // window.location.replace("./confirmation.html"); //Go back to index
     })
-    .catch((e) => {
-        displayError();
-        console.log(e);
+    .catch((error) => {
+        console.error(error);
     })
     
-    // console.log(response);
-     
 }
 
 
