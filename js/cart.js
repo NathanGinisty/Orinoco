@@ -151,10 +151,12 @@ function Order()
         console.log(e);
     })
     
+    // console.log(response);
+     
 }
 
 
 // ----------------------
 
-console.log(cart);
+// console.log(cart);
 LoadCart();
