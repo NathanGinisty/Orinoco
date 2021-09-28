@@ -93,7 +93,7 @@ function AreContactAreValid(_contact)
 function PostOrder()
 {
     // Get all the contact and cart to send
-    var contactToSend = {
+    var contact = {
         firstName: document.getElementById("form-fname").value,
         lastName: document.getElementById("form-lname").value,
         address: document.getElementById("form-address").value,
@@ -107,23 +107,23 @@ function PostOrder()
         alert("Le panier est vide !");
         return;
     }
-    if (!AreContactAreValid(contactToSend))
+    if (!AreContactAreValid(contact))
     {
         alert("Les informations sont incomplètes ou invalides !");
         return;
     }
     
-    var cartToSend = [];
+    var products = [];
     cart.forEach(e => {
         for (let i = 0; i < e.quantity; i++) {
-            cartToSend.push(e.id);
+            products.push(e.id);
         }
     })
     
     // Prepare info to send
     var order = {
-        contactToSend,
-        cartToSend
+        contact,
+        products
     }
     
     var request = {
@@ -137,14 +137,13 @@ function PostOrder()
     .then((response) => response.json())
     .then( (r) => {
         console.log(r);
-
         // ce que je garde en local, a remplacer par server d'ailleurs
         // sessionStorage.setItem('contact', JSON.stringify(r.contactToSend));
         // sessionStorage.setItem('orderId', JSON.stringify(r.cartToSend));
         // sessionStorage.setItem('total', JSON.stringify(totalPrice));
-
-        // sessionStorage.removeItem('cart');
-        // window.location.replace("./confirmation.html"); //Go back to index
+        
+        sessionStorage.removeItem('cart');
+        window.location.replace("./confirmation.html#" + r.orderId);
     })
     .catch((error) => {
         console.error(error);

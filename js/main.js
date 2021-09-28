@@ -1,12 +1,4 @@
 /*
-
-- formulaire de contact
-- panier
-- formulaire de commande
-- contact de commande ( back-end ID, calculé depuis le backend)
-
-*/
-
 function multiplyNode(node, count, deep)
 {
     for (var i = 0, copy; i < count - 1; i++) {
@@ -15,6 +7,7 @@ function multiplyNode(node, count, deep)
     }
 }
 // multiplyNode(document.querySelector('.product'), 5, true);
+*/
 
 function insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
