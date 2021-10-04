@@ -4,48 +4,59 @@ function insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
-function newProduct(node, element, index, insertAfterNode = null)
+function NewItem(node, element, index, insertAfterNode = null)
 {
-    var newPrdt = node.cloneNode(true);
+    // create another item by copying the template
+    var item = node.cloneNode(true);   
+    insertAfter(item, insertAfterNode == null ? node : insertAfterNode);
     
-    insertAfter(newPrdt, insertAfterNode == null ? node : insertAfterNode);
+    // set all the info except lenses
+    InitItemsInfo(item, index, element);
     
+    // set all the lenses
+    InitItemsLenses(item, index, element);
+    
+    return item;
+}
+
+function InitItemsInfo(_item, _index, _element)
+{
     // rename to the new index
-    newPrdt.querySelector("#prdt-0").setAttribute("id", index);
-    newPrdt.querySelector("#prdt-name-0").setAttribute("id", "prdt-name-" + index);
-    newPrdt.querySelector("#prdt-img-0").setAttribute("id", "prdt-img-" + index);
-    newPrdt.querySelector("#prdt-price-0").setAttribute("id", "prdt-price-" + index);
-    newPrdt.querySelector("#prdt-lenses-0-0").setAttribute("id", "prdt-lenses-" + index + "-0");
-    newPrdt.querySelector("#prdt-description-0").setAttribute("id", "prdt-description-" + index);
+    _item.querySelector("#prdt-0").setAttribute("id", _index);
+    _item.querySelector("#prdt-name-0").setAttribute("id", "prdt-name-" + _index);
+    _item.querySelector("#prdt-img-0").setAttribute("id", "prdt-img-" + _index);
+    _item.querySelector("#prdt-price-0").setAttribute("id", "prdt-price-" + _index);
+    _item.querySelector("#prdt-lenses-0-0").setAttribute("id", "prdt-lenses-" + _index + "-0");
+    _item.querySelector("#prdt-description-0").setAttribute("id", "prdt-description-" + _index);
     
     // set new value onto the new product
-    document.getElementById(index).addEventListener("click", function(){UpdateUrlProduct(this)});
-    document.getElementById("prdt-name-" + index).innerHTML = element.name;
-    document.getElementById("prdt-img-" + index).src = element.imageUrl;
-    document.getElementById("prdt-description-" + index).innerHTML = element.description;
+    document.getElementById(_index).addEventListener("click", function(){UpdateUrlProduct(this)});
+    document.getElementById("prdt-name-" + _index).innerHTML = _element.name;
+    document.getElementById("prdt-img-" + _index).src = _element.imageUrl;
+    document.getElementById("prdt-description-" + _index).innerHTML = _element.description;
     
-    let newPrice = String(element.price);
-    document.getElementById("prdt-price-" + index).innerHTML = newPrice.slice(0,-2)+ "." + newPrice.slice(-2,newPrice.length)+ "€";
-    
-    // get and set all the lenses value
+    let newPrice = String(_element.price);
+    document.getElementById("prdt-price-" + _index).innerHTML = newPrice.slice(0,-2)+ "." + newPrice.slice(-2,newPrice.length)+ "€";
+}
+
+function InitItemsLenses(_item, _index, _element)
+{
     var j = 0;
-    var srcLenses = document.getElementById("prdt-lenses-" + index + "-0");
+    var srcLenses = document.getElementById("prdt-lenses-" + _index + "-0");
     var lastLenses = srcLenses;
     
-    element.lenses.forEach(e => {
+    _element.lenses.forEach(e => {
         if (j > 0)
         {
             var newLenses = srcLenses.cloneNode(true);
             lastLenses.parentNode.insertBefore(newLenses, lastLenses);
-            newPrdt.querySelector("#prdt-lenses-" + index + "-0").setAttribute("id", "prdt-lenses-" + index + "-" + j);
+            _item.querySelector("#prdt-lenses-" + _index + "-0").setAttribute("id", "prdt-lenses-" + _index + "-" + j);
         }
-        document.getElementById("prdt-lenses-" + index + "-" + j).innerHTML = e;
-        document.getElementById("prdt-lenses-" + index + "-" + j).addEventListener("click", function(){UpdateUrlProduct(this, j)});
-        lastLenses = document.getElementById("prdt-lenses-" + index + "-" + j);
+        document.getElementById("prdt-lenses-" + _index + "-" + j).innerHTML = e;
+        document.getElementById("prdt-lenses-" + _index + "-" + j).addEventListener("click", function(){UpdateUrlProduct(this, j)});
+        lastLenses = document.getElementById("prdt-lenses-" + _index + "-" + j);
         j++;
     })
-    
-    return newPrdt;
 }
 
 function UpdateUrlProduct(_element, _lenses = null)
@@ -65,7 +76,7 @@ function UpdateUrlProduct(_element, _lenses = null)
 function LoadItems(_data)
 {
     var lastNode = null;
-    _data.forEach(element => { lastNode = newProduct(document.querySelector('.product'), element, element._id, lastNode);});  
+    _data.forEach(element => { lastNode = NewItem(document.querySelector('.product'), element, element._id, lastNode);});  
     document.querySelector('.product').remove(); // remove the base(first one) since it became useless
 }
 
