@@ -54,6 +54,8 @@ function SelectLenses(_element)
     window.location.href = currentHtml2 + "#" + numLense;
 }
 
+//main.GetData(GetItemFromID, main.apiData.url + main.apiData.table + "/" + _id);
+
 function AddToCart()
 {   
     // Get or init (if doesn't already exist) the storage 
@@ -77,7 +79,7 @@ function AddToCart()
         lensesText: document.getElementById("prdt-lenses-" + itemID + "-" + itemLenses).innerHTML,
         quantity: 1
     };
-    
+
     // Check if already exist. If yes, increase quantity
     cart.forEach(e => {
         if (e.id == productToAdd.id && e.lenses == productToAdd.lenses)
