@@ -38,7 +38,7 @@
                 <tbody>
                     <tr id="item-0-0">
                         <td class="cart-row" id="item-name-0-0">Name</td>
-                        <td class="cart-row-form" id="item-quantity-0-0"><input class="form-quantity" type="number" onchange="UpdateQuantity(this)"></td>
+                        <td class="cart-row-form" id="item-quantity-0-0"><input class="form-quantity" type="number"></td>
                         <td id="item-price-0-0">999$</td>
                         <td id="item-pricetotal-0-0">99999$</td>
                     </tr>
@@ -90,7 +90,7 @@
 
             <br><br> <!--temp-->
             <a href="#" class="link-without-underline">
-                <div class="item-button-buy" onclick="PostOrder()">
+                <div id="button-order" class="item-button-buy">
                     <div class="item-button-buy-text">Commander</div>
                 </div>
             </a>
@@ -109,6 +109,6 @@
         </ul>
     </footer>
     
-    <script src="js/cart.js"></script>
+    <script src="js/cart.js" type="module"></script>
 </body>
 </html>

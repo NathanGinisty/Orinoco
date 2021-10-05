@@ -1,4 +1,5 @@
-const apiUrl = "http://localhost:3000/api/cameras/"
+import * as main from './main.js';
+
 var cart = JSON.parse(sessionStorage.getItem("cart")); 
 var totalPrice = 0;
 
@@ -24,9 +25,9 @@ function LoadCart()
             document.getElementById("item-pricetotal-0-0").setAttribute("id", "item-pricetotal-" + completeID);
             
             // set new value onto the new product
-            
             document.getElementById("item-name-" + completeID).innerHTML = e.name + " (" + e.lensesText + ")";
             document.getElementById("item-quantity-" + completeID).firstChild.value = e.quantity;
+            document.getElementById("item-quantity-" + completeID).addEventListener("click", function(){UpdateQuantity(this.firstElementChild)});
             document.getElementById("item-price-" + completeID).innerHTML = e.price.toFixed(2) + "€";
             document.getElementById("item-pricetotal-" + completeID).innerHTML = (e.price * e.quantity).toFixed(2) + "€";
             
@@ -42,22 +43,55 @@ function LoadCart()
     // srcItem.remove(); // remove the base(first one) since it became useless
 }
 
+function RemoveItemFromArray(_arr, _value)
+{
+    var index = _arr.indexOf(_value);
+    if (index > -1) {
+        _arr.splice(index, 1);
+    }
+    return _arr;
+}
+
+function RemoveFromCart(_ID, _lenses)
+{
+    //console.log("will remove:" + _ID + "#" + _lenses);
+
+    var i = 0;
+    cart.forEach(e => {
+        
+        // Search the one to remove
+        if (e.id == _ID && e.lenses == _lenses)
+        {
+            document.getElementById("item-" + _ID + "-" + _lenses).remove();
+            console.log("removing:" + cart[i].id + "#" + cart[i].lenses);
+            RemoveItemFromArray(cart, cart[i]);
+            return;
+        }
+        i++;
+    })
+}
+
 function UpdateQuantity(_form)
 {
-    if (_form.value < 1)
-    {
-        // Block to 1
-        _form.value = 1;
-        return;
-    }
-    
+    // Reset cart price before updating it
     totalPrice = 0;
     
     //get ID from the parent node
     var parentID = _form.parentNode.id.split("-")[2];
     var parentLenses = _form.parentNode.id.split("-")[3];
     
-    // Update
+    if (_form.value < 1)
+    {
+        // Remove from cart
+        RemoveFromCart(parentID, parentLenses);
+
+        // Block to 1
+        //_form.value = 1;
+    }
+    
+    
+    
+    // Update price
     if (cart != null)
     {
         cart.forEach(e => {
@@ -73,9 +107,10 @@ function UpdateQuantity(_form)
         })
     }
     
-    // save new value
+    // Update sessionStorage with the cart
     sessionStorage.setItem("cart", JSON.stringify(cart));
     
+    // Draw the new total price of the cart
     document.getElementById("items-pricetotal").innerHTML = totalPrice.toFixed(2) + "€";
 }
 
@@ -92,7 +127,14 @@ function AreContactAreValid(_contact)
 
 function PostOrder()
 {
-    // Get all the contact and cart to send
+    // Check if the cart is empty
+    if (cart == null)
+    {
+        alert("Le panier est vide !");
+        return;
+    }
+    
+    // Prepare the contact information to be sent
     var contact = {
         firstName: document.getElementById("form-fname").value,
         lastName: document.getElementById("form-lname").value,
@@ -101,18 +143,14 @@ function PostOrder()
         email: document.getElementById("form-email").value
     };
     
-    // Check if the order is elligible
-    if (cart == null)
-    {
-        alert("Le panier est vide !");
-        return;
-    }
+    // Check if the contact are valid
     if (!AreContactAreValid(contact))
     {
         alert("Les informations sont incomplètes ou invalides !");
         return;
     }
     
+    // Prepare the cart to be sent
     var products = [];
     cart.forEach(e => {
         for (let i = 0; i < e.quantity; i++) {
@@ -120,39 +158,23 @@ function PostOrder()
         }
     })
     
-    // Prepare info to send
-    var order = {
-        contact,
-        products
-    }
-    
     var request = {
         method: 'POST',
-        body: JSON.stringify(order), //was "toSend"
+        body: JSON.stringify({contact, products}),
         headers: {'Content-Type': 'application/json; charset=utf-8'},
     }
     
-    // Sending info...
-    fetch('http://localhost:3000/api/cameras/order', request)
-    .then((response) => response.json())
-    .then( (r) => {
-        console.log(r);
-        // ce que je garde en local, a remplacer par server d'ailleurs
-        // sessionStorage.setItem('contact', JSON.stringify(r.contactToSend));
-        // sessionStorage.setItem('orderId', JSON.stringify(r.cartToSend));
-        // sessionStorage.setItem('total', JSON.stringify(totalPrice));
-        
-        sessionStorage.removeItem('cart');
-        window.location.replace("./confirmation.html#" + r.orderId);
-    })
-    .catch((error) => {
-        console.error(error);
-    })
-    
+    main.SendData(ConfirmPostOrder, main.apiData.url + main.apiData.table + "/order", request);
 }
 
+function ConfirmPostOrder(_r)
+{
+    window.location.replace("./confirmation.html#" + _r.orderId)
+    sessionStorage.removeItem('cart');
+}
 
 // ----------------------
 
 // console.log(cart);
 LoadCart();
+document.getElementById("button-order").addEventListener("click", PostOrder);
